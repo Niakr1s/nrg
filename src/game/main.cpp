@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]) {
   Manager manager;
   manager.startKeyListenerThread();
-  manager.mainLoop();
+  manager.startMainLoop();
 
   return 0;
 }

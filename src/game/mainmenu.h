@@ -10,6 +10,8 @@
 class MainMenu : public State {
   std::vector<std::shared_ptr<Button>> buttons_;
 
+  void processEventQueue();
+
  public:
   MainMenu(Manager &manager);
 

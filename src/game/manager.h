@@ -6,6 +6,8 @@
 #include <memory>
 #include <thread>
 
+#include "eventqueue.h"
+
 class State;
 
 class Manager {
@@ -23,7 +25,8 @@ class Manager {
 
   void startKeyListenerThread();
 
-  void mainLoop();
+  void startMainLoop();
+  void stopMainLoop();
 };
 
 #endif  // MANAGER_H

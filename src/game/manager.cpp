@@ -28,12 +28,14 @@ void Manager::startKeyListenerThread() {
       if (event.type == sf::Event::MouseButtonPressed ||
           event.type == sf::Event::MouseMoved ||
           event.type == sf::Event::KeyPressed) {
+        std::unique_lock<std::mutex> lk(state_->eventQueue().mutex);
+        state_->eventQueue().queue.push(event);
       }
     }
   });
 }
 
-void Manager::mainLoop() {
+void Manager::startMainLoop() {
   prev_time_ = std::chrono::system_clock::now();
 
   while (active_) {
@@ -51,4 +53,9 @@ void Manager::mainLoop() {
 
     std::this_thread::sleep_for(10ms);
   }
+}
+
+void Manager::stopMainLoop() {
+  active_ = false;
+  key_listener_thread_.join();
 }

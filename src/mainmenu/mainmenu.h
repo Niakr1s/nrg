@@ -4,8 +4,8 @@
 #include <memory>
 #include <vector>
 
-#include "button.h"
 #include "state.h"
+#include "widgets/button.h"
 
 class MainMenu : public State {
   std::vector<std::shared_ptr<Button>> buttons_;

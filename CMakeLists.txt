@@ -25,5 +25,5 @@ file(COPY data DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 find_package(Boost REQUIRED)
 
-add_subdirectory(src/game)
-add_subdirectory(tests/game)
+add_subdirectory(src)
+add_subdirectory(tests)

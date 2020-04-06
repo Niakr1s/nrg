@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <chrono>
 
-#include "eventqueue.h"
-#include "keybindings.h"
 #include "manager.h"
+#include "misc/eventqueue.h"
+#include "misc/keybindings.h"
 
 class State {
  protected:

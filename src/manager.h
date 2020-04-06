@@ -6,7 +6,7 @@
 #include <memory>
 #include <thread>
 
-#include "eventqueue.h"
+#include "misc/eventqueue.h"
 
 class State;
 

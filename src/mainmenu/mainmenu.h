@@ -13,9 +13,9 @@ class MainMenu : public State {
   void processEventQueue();
 
  public:
-  MainMenu(Manager &manager);
+  MainMenu(Manager& manager);
 
-  void update(std::chrono::milliseconds) override;
+  void update(const std::chrono::milliseconds& diff) override;
 };
 
 #endif  // MAINMENU_H

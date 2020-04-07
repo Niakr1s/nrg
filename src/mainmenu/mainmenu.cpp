@@ -50,7 +50,7 @@ void MainMenu::processEventQueue() {
   }
 }
 
-void MainMenu::update(std::chrono::milliseconds) {
+void MainMenu::update(const std::chrono::milliseconds& diff) {
   processEventQueue();
 
   for (auto& btn : buttons_) {

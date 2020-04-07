@@ -22,7 +22,7 @@ class State {
 
   // you should update your physics, animations and draw it onto window_
   // don't call window_.display()
-  virtual void update(std::chrono::milliseconds) = 0;
+  virtual void update(const std::chrono::milliseconds &diff) = 0;
 
   EventQueue &eventQueue();
 };

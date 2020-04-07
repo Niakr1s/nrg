@@ -15,9 +15,9 @@ class Game : public State {
   std::vector<std::shared_ptr<Button>> buttons_;
 
  public:
-  Game(Manager &manager);
+  Game(Manager& manager);
 
-  void update(std::chrono::milliseconds ms) override;
+  void update(const std::chrono::milliseconds& diff) override;
 };
 
 #endif  // GAME_H

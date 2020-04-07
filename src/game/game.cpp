@@ -39,7 +39,7 @@ void Game::processEventQueue() {
   }
 }
 
-void Game::update(std::chrono::milliseconds diff) {
+void Game::update(const std::chrono::milliseconds& diff) {
   time_ += diff.count();
 
   processEventQueue();

@@ -3,13 +3,26 @@
 #include <iostream>
 #include <thread>
 
-using namespace std::chrono_literals;
-
+#include "game/game.h"
 #include "mainmenu/mainmenu.h"
+
+using namespace std::chrono_literals;
 
 Manager::Manager() {}
 
 std::shared_ptr<State> Manager::state() const { return state_; }
+
+void Manager::startNewGame() { pending_state_ = std::make_shared<Game>(*this); }
+
+void Manager::pauseGame() {
+  paused_game_ = state_;
+  pending_state_ = std::make_shared<MainMenu>(*this);
+}
+
+void Manager::resumeGame() {
+  pending_state_ = paused_game_;
+  paused_game_ = nullptr;
+}
 
 std::shared_ptr<sf::RenderWindow> Manager::window() const { return window_; }
 
@@ -50,6 +63,11 @@ void Manager::startMainLoop() {
     window_->clear();
     state_->update(diff);
     window_->display();
+
+    if (pending_state_) {
+      state_ = pending_state_;
+      pending_state_ = nullptr;
+    }
 
     std::this_thread::sleep_for(10ms);
   }

@@ -1,4 +1,4 @@
-#include "mainmenu.h"
+#include "game.h"
 
 #include <SFML/Graphics.hpp>
 #include <boost/signals2.hpp>
@@ -6,27 +6,13 @@
 #include <functional>
 #include <iostream>
 
+#include "mainmenu/mainmenu.h"
+
 using namespace std::chrono_literals;
 
-MainMenu::MainMenu(Manager& manager) : State(manager) {
-  auto startGameBtn = std::make_shared<Button>("Start game", manager_);
-  startGameBtn->setPosition(300, 200);
-  startGameBtn->clicked.connect([&] { manager_.startNewGame(); });
+Game::Game(Manager& manager) : State(manager) {}
 
-  auto continueBtn = std::make_shared<Button>("Continue", manager_);
-  continueBtn->setPosition(300, 300);
-  continueBtn->clicked.connect([&] { manager_.resumeGame(); });
-
-  auto exitBtn = std::make_shared<Button>("Exit", manager_);
-  exitBtn->setPosition(300, 400);
-  exitBtn->clicked.connect([&] { manager_.stopMainLoop(); });
-
-  buttons_.push_back(startGameBtn);
-  buttons_.push_back(continueBtn);
-  buttons_.push_back(exitBtn);
-}
-
-void MainMenu::processEventQueue() {
+void Game::processEventQueue() {
   std::unique_lock<std::mutex>(event_queue_.mutex);
   while (!event_queue_.queue.empty()) {
     auto event = event_queue_.queue.front();
@@ -44,16 +30,17 @@ void MainMenu::processEventQueue() {
         btn->setSelected(rect.contains(event.mouseMove.x, event.mouseMove.y));
       }
     } else if (event.type == sf::Event::KeyPressed) {
+      if (event.key.code == sf::Keyboard::Escape) {
+        manager_.pauseGame();
+      }
     }
 
     event_queue_.queue.pop();
   }
 }
 
-void MainMenu::update(std::chrono::milliseconds) {
-  processEventQueue();
+void Game::update(std::chrono::milliseconds diff) {
+  time_ += diff.count();
 
-  for (auto& btn : buttons_) {
-    btn->draw(*window_);
-  }
+  processEventQueue();
 }

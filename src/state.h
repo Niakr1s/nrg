@@ -6,7 +6,6 @@
 
 #include "manager.h"
 #include "misc/eventqueue.h"
-#include "misc/keybindings.h"
 
 class State {
  protected:
@@ -25,6 +24,7 @@ class State {
   virtual void update(const std::chrono::milliseconds &diff) = 0;
 
   EventQueue &eventQueue();
+  Manager &manager();
 };
 
 #endif  // STATE_H

@@ -12,45 +12,29 @@
 
 using namespace std::chrono_literals;
 
-Game::Game(Manager& manager) : State(manager) {
-  systems_.push_back(std::make_shared<MoveSystem>());
-  systems_.push_back(std::make_shared<RenderSystem>(*window_));
+Game::Game(Manager& manager)
+    : State(manager), keybindings_(KeyBindings::defaultKeyBindings()) {
+  systems_ = {std::make_shared<MoveSystem>(),
+              std::make_shared<KeyboardSystem>(*this),
+              std::make_shared<RenderSystem>(*window_)};
 
-  spawnPlayer(400, 400);
+  spawnPlayer(100, 100);
 }
 
 void Game::spawnPlayer(float x, float y) {
-  auto [entity, player, pos, radius, velocity] =
-      registry_.create<components::Player, components::Position,
-                       components::Radius, components::Velocity>();
+  auto [entity, player, pos, radius, velocity, keyboard] =
+      registry_
+          .create<components::Player, components::Position, components::Radius,
+                  components::Velocity, components::KeyBoard>();
   pos.x = x;
   pos.y = y;
   radius.r = 10.;
-  velocity.dx_per_sec = 10;
-  velocity.dy_per_sec = 10;
-}
-
-void Game::processEventQueue() {
-  std::unique_lock<std::mutex>(event_queue_.mutex);
-  while (!event_queue_.queue.empty()) {
-    auto event = event_queue_.queue.front();
-
-    if (event.type == sf::Event::MouseButtonPressed) {
-    } else if (event.type == sf::Event::MouseMoved) {
-    } else if (event.type == sf::Event::KeyPressed) {
-      if (event.key.code == sf::Keyboard::Escape) {
-        manager_.pauseGame();
-      }
-    }
-
-    event_queue_.queue.pop();
-  }
 }
 
 void Game::update(const std::chrono::milliseconds& diff) {
   for (auto& system : systems_) {
     system->update(registry_, diff);
   }
-
-  processEventQueue();
 }
+
+const KeyBindings& Game::keybindings() const { return keybindings_; }

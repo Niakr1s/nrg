@@ -11,15 +11,15 @@ class KeyBindings {
     PlayerDown,
     PlayerLeft,
     PlayerRight,
-    PlayerFIre,
-    Escape
+    PlayerFire,
   };
 
   KeyBindings();
   KeyBindings(const std::map<sf::Keyboard::Key, Key>& bindings);
 
   Key at(const sf::Keyboard::Key& key) const;
-  bool exists(const sf::Keyboard::Key& key) const;
+
+  static KeyBindings defaultKeyBindings();
 
  private:
   std::map<sf::Keyboard::Key, Key> bindings_;

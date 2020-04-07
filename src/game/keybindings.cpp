@@ -14,11 +14,12 @@ KeyBindings::Key KeyBindings::at(const sf::Keyboard::Key& key) const {
   return bindings_.at(key);
 }
 
-bool KeyBindings::exists(const sf::Keyboard::Key& key) const {
-  try {
-    auto tmp = bindings_.at(key);
-    return true;
-  } catch (std::invalid_argument) {
-    return false;
-  }
+KeyBindings KeyBindings::defaultKeyBindings() {
+  return KeyBindings({
+      {sf::Keyboard::W, Key::PlayerUp},
+      {sf::Keyboard::S, Key::PlayerDown},
+      {sf::Keyboard::A, Key::PlayerLeft},
+      {sf::Keyboard::D, Key::PlayerRight},
+      {sf::Keyboard::Space, Key::PlayerFire},
+  });
 }

@@ -40,7 +40,8 @@ void Manager::startKeyListenerThread() {
 
       if (event.type == sf::Event::MouseButtonPressed ||
           event.type == sf::Event::MouseMoved ||
-          event.type == sf::Event::KeyPressed) {
+          event.type == sf::Event::KeyPressed ||
+          event.type == sf::Event::KeyReleased) {
         std::unique_lock<std::mutex> lk(state_->eventQueue().mutex);
         state_->eventQueue().queue.push(event);
       }
@@ -69,7 +70,7 @@ void Manager::startMainLoop() {
       pending_state_ = nullptr;
     }
 
-    std::this_thread::sleep_for(10ms);
+    std::this_thread::sleep_for(1ms);
   }
 }
 

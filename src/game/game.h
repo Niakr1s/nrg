@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 
+#include "keybindings.h"
 #include "state.h"
 #include "systems.h"
 #include "widgets/button.h"
@@ -12,11 +13,7 @@
 class Game : public State {
   entt::registry registry_;
   std::vector<std::shared_ptr<System>> systems_;
-
-  void processEventQueue();
-
-  Button time_text_;
-  long long time_ = 0;
+  KeyBindings keybindings_;
 
  public:
   Game(Manager& manager);
@@ -24,6 +21,8 @@ class Game : public State {
   void spawnPlayer(float x, float y);
 
   void update(const std::chrono::milliseconds& diff) override;
+
+  const KeyBindings& keybindings() const;
 };
 
 #endif  // GAME_H

@@ -1,6 +1,7 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 
+#include "components/keyboard.h"
 #include "components/player.h"
 #include "components/positioncomponent.h"
 #include "components/radius.h"

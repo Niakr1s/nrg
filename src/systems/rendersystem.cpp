@@ -4,10 +4,11 @@
 
 #include "components.h"
 
-RenderSystem::RenderSystem(sf::RenderWindow &window) : window_(window) {}
+systems::RenderSystem::RenderSystem(sf::RenderWindow &window)
+    : window_(window) {}
 
-void RenderSystem::update(entt::registry &registry,
-                          const std::chrono::milliseconds &diff) {
+void systems::RenderSystem::update(entt::registry &registry,
+                                   const std::chrono::milliseconds &diff) {
   registry.view<components::Position, components::Radius>().each(
       [&](const entt::entity entity, components::Position &pos,
           components::Radius &radius) {

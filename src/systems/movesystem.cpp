@@ -4,10 +4,10 @@
 
 #include "components.h"
 
-MoveSystem::MoveSystem() {}
+systems::MoveSystem::MoveSystem() {}
 
-void MoveSystem::update(entt::registry& registry,
-                        const std::chrono::milliseconds& diff) {
+void systems::MoveSystem::update(entt::registry& registry,
+                                 const std::chrono::milliseconds& diff) {
   registry
       .view<components::KeyBoard, components::Velocity, components::Direction>()
       .each([&](components::KeyBoard& kb, components::Velocity& vel,

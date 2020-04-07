@@ -5,6 +5,8 @@
 
 #include "systems/system.h"
 
+namespace systems {
+
 class RenderSystem : public System {
   sf::RenderWindow& window_;
 
@@ -14,5 +16,7 @@ class RenderSystem : public System {
   void update(entt::registry& registry,
               const std::chrono::milliseconds& diff) override;
 };
+
+}  // namespace systems
 
 #endif  // RENDERSYSTEM_H

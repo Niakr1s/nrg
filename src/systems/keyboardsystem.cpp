@@ -5,10 +5,10 @@
 #include "components.h"
 #include "game/game.h"
 
-KeyboardSystem::KeyboardSystem(Game &game) : game_(game) {}
+systems::KeyboardSystem::KeyboardSystem(Game &game) : game_(game) {}
 
-void KeyboardSystem::update(entt::registry &registry,
-                            const std::chrono::milliseconds &diff) {
+void systems::KeyboardSystem::update(entt::registry &registry,
+                                     const std::chrono::milliseconds &diff) {
   std::unique_lock<std::mutex>(game_.eventQueue().mutex);
   while (!game_.eventQueue().queue.empty()) {
     auto event = game_.eventQueue().queue.front();

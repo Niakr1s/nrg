@@ -3,6 +3,8 @@
 
 #include "systems/system.h"
 
+namespace systems {
+
 class MoveSystem : public System {
  public:
   MoveSystem();
@@ -10,5 +12,7 @@ class MoveSystem : public System {
   void update(entt::registry &registry,
               const std::chrono::milliseconds &diff) override;
 };
+
+}  // namespace systems
 
 #endif  // MOVESYSTEM_H

@@ -14,9 +14,9 @@ using namespace std::chrono_literals;
 
 Game::Game(Manager& manager)
     : State(manager), keybindings_(KeyBindings::defaultKeyBindings()) {
-  systems_ = {std::make_shared<MoveSystem>(),
-              std::make_shared<KeyboardSystem>(*this),
-              std::make_shared<RenderSystem>(*window_)};
+  systems_ = {std::make_shared<systems::MoveSystem>(),
+              std::make_shared<systems::KeyboardSystem>(*this),
+              std::make_shared<systems::RenderSystem>(*window_)};
 
   spawnPlayer(100, 100);
 }

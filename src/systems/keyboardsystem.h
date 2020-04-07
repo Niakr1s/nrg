@@ -5,6 +5,8 @@
 
 class Game;
 
+namespace systems {
+
 class KeyboardSystem : public System {
   Game& game_;
 
@@ -14,5 +16,7 @@ class KeyboardSystem : public System {
   void update(entt::registry& registry,
               const std::chrono::milliseconds& diff) override;
 };
+
+}  // namespace systems
 
 #endif  // KEYBOARDSYSTEM_H

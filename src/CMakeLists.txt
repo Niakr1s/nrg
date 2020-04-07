@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(entt REQUIRED)
 
 file(GLOB_RECURSE src
     *.cpp *.h

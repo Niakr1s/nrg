@@ -6,11 +6,15 @@
 #include <functional>
 #include <iostream>
 
+#include "components.h"
 #include "mainmenu/mainmenu.h"
+#include "systems/rendersystem.h"
 
 using namespace std::chrono_literals;
 
-Game::Game(Manager& manager) : State(manager) {}
+Game::Game(Manager& manager) : State(manager) {
+  systems_.push_back(std::make_shared<RenderSystem>(*window_));
+}
 
 void Game::processEventQueue() {
   std::unique_lock<std::mutex>(event_queue_.mutex);
@@ -30,9 +34,9 @@ void Game::processEventQueue() {
 }
 
 void Game::update(const std::chrono::milliseconds& diff) {
-  time_ += diff.count();
-  time_text_.setText(std::to_string(time_ / 1000) + "s");
-  time_text_.draw(*window_);
+  for (auto& system : systems_) {
+    system->update(registry_, diff);
+  }
 
   processEventQueue();
 }

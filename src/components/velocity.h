@@ -4,7 +4,7 @@
 namespace components {
 
 struct Velocity {
-  float dx_per_sec = 0., dy_per_sec = 0.;
+  float speed = 100;
 };
 
 }  // namespace components

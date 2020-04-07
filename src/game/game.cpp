@@ -22,10 +22,10 @@ Game::Game(Manager& manager)
 }
 
 void Game::spawnPlayer(float x, float y) {
-  auto [entity, player, pos, radius, velocity, keyboard] =
-      registry_
-          .create<components::Player, components::Position, components::Radius,
-                  components::Velocity, components::KeyBoard>();
+  auto [entity, player, pos, radius, velocity, keyboard, dir] =
+      registry_.create<components::Player, components::Position,
+                       components::Radius, components::Velocity,
+                       components::KeyBoard, components::Direction>();
   pos.x = x;
   pos.y = y;
   radius.r = 10.;

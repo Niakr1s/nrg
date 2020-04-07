@@ -1,7 +1,8 @@
 #ifndef SYSTEMS_H
 #define SYSTEMS_H
 
-#include "systems/system.h"
+#include "systems/movesystem.h"
 #include "systems/rendersystem.h"
+#include "systems/system.h"
 
-#endif // SYSTEMS_H
+#endif  // SYSTEMS_H

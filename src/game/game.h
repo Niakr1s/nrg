@@ -21,6 +21,8 @@ class Game : public State {
  public:
   Game(Manager& manager);
 
+  void spawnPlayer(float x, float y);
+
   void update(const std::chrono::milliseconds& diff) override;
 };
 

@@ -8,12 +8,26 @@
 
 #include "components.h"
 #include "mainmenu/mainmenu.h"
-#include "systems/rendersystem.h"
+#include "systems.h"
 
 using namespace std::chrono_literals;
 
 Game::Game(Manager& manager) : State(manager) {
+  systems_.push_back(std::make_shared<MoveSystem>());
   systems_.push_back(std::make_shared<RenderSystem>(*window_));
+
+  spawnPlayer(400, 400);
+}
+
+void Game::spawnPlayer(float x, float y) {
+  auto [entity, player, pos, radius, velocity] =
+      registry_.create<components::Player, components::Position,
+                       components::Radius, components::Velocity>();
+  pos.x = x;
+  pos.y = y;
+  radius.r = 10.;
+  velocity.dx_per_sec = 10;
+  velocity.dy_per_sec = 10;
 }
 
 void Game::processEventQueue() {

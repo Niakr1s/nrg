@@ -4,7 +4,7 @@
 namespace components {
 
 struct Position {
-  double x, y;
+  float x = 0., y = 0.;
 };
 
 }  // namespace components

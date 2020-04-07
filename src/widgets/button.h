@@ -8,13 +8,15 @@
 #include "manager.h"
 
 class Button {
-  Manager& manager_;
   sf::Font font_;
   sf::Text text_;
   bool selected_ = false;
 
  public:
-  Button(const std::string& str, Manager& manager);
+  Button();
+  Button(const std::string& str);
+  Button(const std::string& str, float x, float y);
+  Button(const std::string& str, float x, float y, const std::string& font_str);
 
   void setPosition(float x, float y);
   void setSelected(bool selected);
@@ -29,6 +31,7 @@ class Button {
   boost::signals2::signal<void()> clicked;
 
   const sf::Text& text() const;
+  void setText(const std::string& text);
 };
 
 #endif  // BUTTON_H

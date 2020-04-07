@@ -18,17 +18,7 @@ void Game::processEventQueue() {
     auto event = event_queue_.queue.front();
 
     if (event.type == sf::Event::MouseButtonPressed) {
-      for (auto& btn : buttons_) {
-        auto rect = btn->text().getGlobalBounds();
-        if (rect.contains(event.mouseButton.x, event.mouseButton.y)) {
-          btn->clicked();
-        }
-      }
     } else if (event.type == sf::Event::MouseMoved) {
-      for (auto& btn : buttons_) {
-        auto rect = btn->text().getGlobalBounds();
-        btn->setSelected(rect.contains(event.mouseMove.x, event.mouseMove.y));
-      }
     } else if (event.type == sf::Event::KeyPressed) {
       if (event.key.code == sf::Keyboard::Escape) {
         manager_.pauseGame();
@@ -41,6 +31,8 @@ void Game::processEventQueue() {
 
 void Game::update(const std::chrono::milliseconds& diff) {
   time_ += diff.count();
+  time_text_.setText(std::to_string(time_ / 1000) + "s");
+  time_text_.draw(*window_);
 
   processEventQueue();
 }

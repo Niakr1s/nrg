@@ -9,15 +9,15 @@
 using namespace std::chrono_literals;
 
 MainMenu::MainMenu(Manager& manager) : State(manager) {
-  auto startGameBtn = std::make_shared<Button>("Start game", manager_);
+  auto startGameBtn = std::make_shared<Button>("Start game");
   startGameBtn->setPosition(300, 200);
   startGameBtn->clicked.connect([&] { manager_.startNewGame(); });
 
-  auto continueBtn = std::make_shared<Button>("Continue", manager_);
+  auto continueBtn = std::make_shared<Button>("Continue");
   continueBtn->setPosition(300, 300);
   continueBtn->clicked.connect([&] { manager_.resumeGame(); });
 
-  auto exitBtn = std::make_shared<Button>("Exit", manager_);
+  auto exitBtn = std::make_shared<Button>("Exit");
   exitBtn->setPosition(300, 400);
   exitBtn->clicked.connect([&] { manager_.stopMainLoop(); });
 

@@ -10,9 +10,8 @@
 class Game : public State {
   void processEventQueue();
 
+  Button time_text_;
   long long time_ = 0;
-
-  std::vector<std::shared_ptr<Button>> buttons_;
 
  public:
   Game(Manager& manager);

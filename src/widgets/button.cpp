@@ -4,9 +4,20 @@
 
 const sf::Text& Button::text() const { return text_; }
 
-Button::Button(const std::string& str, Manager& manager) : manager_(manager) {
-  font_.loadFromFile("data/fonts/arial.ttf");
+void Button::setText(const std::string& text) { text_.setString(text); }
+
+Button::Button() : Button("") {}
+
+Button::Button(const std::string& str) : Button(str, 0., 0.) {}
+
+Button::Button(const std::string& str, float x, float y)
+    : Button(str, x, y, "data/fonts/arial.ttf") {}
+
+Button::Button(const std::string& str, float x, float y,
+               const std::string& font_str) {
+  font_.loadFromFile(font_str);
   text_ = sf::Text(str, font_);
+  setPosition(x, y);
 }
 
 void Button::setPosition(float x, float y) { text_.setPosition(x, y); }

@@ -36,7 +36,7 @@ void Manager::startKeyListenerThread() {
 
     sf::Event event;
     while (active_ && window_->isOpen() && window_->waitEvent(event)) {
-      if (event.type == sf::Event::Closed) break;
+      if (event.type == sf::Event::Closed) active_ = false;
 
       if (event.type == sf::Event::MouseButtonPressed ||
           event.type == sf::Event::MouseMoved ||
@@ -72,6 +72,7 @@ void Manager::startMainLoop() {
 
     std::this_thread::sleep_for(1ms);
   }
+  stopMainLoop();
 }
 
 void Manager::stopMainLoop() {

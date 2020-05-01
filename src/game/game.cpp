@@ -12,6 +12,8 @@
 
 using namespace std::chrono_literals;
 
+namespace states {
+
 Game::Game(Manager& manager)
     : State(manager),
       keybindings_(KeyBindings::defaultKeyBindings()),
@@ -36,3 +38,5 @@ void Game::update(const std::chrono::milliseconds& diff) {
 }
 
 const KeyBindings& Game::keybindings() const { return keybindings_; }
+
+}  // namespace states

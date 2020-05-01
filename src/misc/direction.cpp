@@ -4,6 +4,8 @@
 
 #include "constants.h"
 
+namespace misc {
+
 std::optional<float> Direction::angle() const { return angle_; }
 
 Direction::Direction() {}
@@ -33,9 +35,9 @@ void Direction::setDirectionVector(float dx, float dy) {
   angle_ = std::atan(std::fabs(dy) / std::fabs(dx));
 
   if (dx < 0 && dy <= 0) {  // II
-    angle_ = PI - angle_.value();
+    angle_ = constants::PI - angle_.value();
   } else if (dx <= 0 && dy > 0) {  // III
-    angle_ = -PI + angle_.value();
+    angle_ = -constants::PI + angle_.value();
   } else if (dx > 0 && dy >= 0) {  // IV
     angle_ = -angle_.value();
   }
@@ -44,3 +46,5 @@ void Direction::setDirectionVector(float dx, float dy) {
 void Direction::setDirectionVector(const std::pair<float, float> &dir) {
   setDirectionVector(dir.first, dir.second);
 }
+
+}  // namespace misc

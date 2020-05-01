@@ -2,7 +2,7 @@
 
 #include <thread>
 
-EventQueue& State::eventQueue() { return event_queue_; }
+misc::EventQueue& State::eventQueue() { return event_queue_; }
 
 Manager& State::manager() { return manager_; }
 

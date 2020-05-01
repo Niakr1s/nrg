@@ -2,6 +2,8 @@
 
 #include "constants.h"
 
+namespace misc {
+
 KeyBoard::KeyBoard() {}
 
 bool KeyBoard::firePressed() { return pressed_[Key::PlayerFire]; }
@@ -26,3 +28,5 @@ std::pair<float, float> KeyBoard::getDirectionVector() {
   }
   return res;
 }
+
+}  // namespace misc

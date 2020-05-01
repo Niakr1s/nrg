@@ -12,11 +12,13 @@ Manager::Manager() {}
 
 std::shared_ptr<State> Manager::state() const { return state_; }
 
-void Manager::startNewGame() { pending_state_ = std::make_shared<Game>(*this); }
+void Manager::startNewGame() {
+  pending_state_ = std::make_shared<states::Game>(*this);
+}
 
 void Manager::pauseGame() {
   paused_game_ = state_;
-  pending_state_ = std::make_shared<MainMenu>(*this);
+  pending_state_ = std::make_shared<states::MainMenu>(*this);
 }
 
 void Manager::resumeGame() {
@@ -32,7 +34,7 @@ void Manager::startKeyListenerThread() {
         std::make_shared<sf::RenderWindow>(sf::VideoMode(800, 600), "nrg");
     window_->setActive(false);
 
-    state_ = std::make_shared<MainMenu>(*this);
+    state_ = std::make_shared<states::MainMenu>(*this);
 
     sf::Event event;
     while (active_ && window_->isOpen() && window_->waitEvent(event)) {

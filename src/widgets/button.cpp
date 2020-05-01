@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+namespace widgets {
+
 const sf::Text& Button::text() const { return text_; }
 
 void Button::setText(const std::string& text) { text_.setString(text); }
@@ -23,3 +25,5 @@ Button::Button(const std::string& str, float x, float y,
 void Button::setPosition(float x, float y) { text_.setPosition(x, y); }
 
 void Button::setSelected(bool selected) { selected_ = selected; }
+
+}  // namespace widgets

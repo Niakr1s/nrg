@@ -13,7 +13,7 @@ class State {
   Manager &manager_;
   std::shared_ptr<sf::RenderWindow> window_;
 
-  EventQueue event_queue_;
+  misc::EventQueue event_queue_;
 
  public:
   State(Manager &manager);
@@ -23,7 +23,7 @@ class State {
   // don't call window_.display()
   virtual void update(const std::chrono::milliseconds &diff) = 0;
 
-  EventQueue &eventQueue();
+  misc::EventQueue &eventQueue();
   Manager &manager();
 };
 

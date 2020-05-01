@@ -3,15 +3,17 @@
 
 #include "system.h"
 
+namespace states {
 class Game;
+}
 
 namespace systems {
 
 class KeyboardSystem : public System {
-  Game& game_;
+  states::Game& game_;
 
  public:
-  KeyboardSystem(Game& game);
+  KeyboardSystem(states::Game& game);
 
   void update(entt::registry& registry,
               const std::chrono::milliseconds& diff) override;

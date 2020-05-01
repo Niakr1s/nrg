@@ -8,16 +8,18 @@
 
 using namespace std::chrono_literals;
 
+namespace states {
+
 MainMenu::MainMenu(Manager& manager) : State(manager) {
-  auto startGameBtn = std::make_shared<Button>("Start game");
+  auto startGameBtn = std::make_shared<widgets::Button>("Start game");
   startGameBtn->setPosition(300, 200);
   startGameBtn->clicked.connect([&] { manager_.startNewGame(); });
 
-  auto continueBtn = std::make_shared<Button>("Continue");
+  auto continueBtn = std::make_shared<widgets::Button>("Continue");
   continueBtn->setPosition(300, 300);
   continueBtn->clicked.connect([&] { manager_.resumeGame(); });
 
-  auto exitBtn = std::make_shared<Button>("Exit");
+  auto exitBtn = std::make_shared<widgets::Button>("Exit");
   exitBtn->setPosition(300, 400);
   exitBtn->clicked.connect([&] { manager_.stopMainLoop(); });
 
@@ -57,3 +59,5 @@ void MainMenu::update(const std::chrono::milliseconds& diff) {
     btn->draw(*window_);
   }
 }
+
+}  // namespace states

@@ -3,6 +3,8 @@
 
 #include <optional>
 
+namespace misc {
+
 class Direction {
   std::optional<float> angle_ = std::nullopt;
 
@@ -19,5 +21,7 @@ class Direction {
   void setDirectionVector(const std::pair<float, float>& dir);
   std::optional<float> angle() const;
 };
+
+}  // namespace misc
 
 #endif  // DIRECTION_H

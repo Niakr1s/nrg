@@ -7,6 +7,8 @@
 
 #include "manager.h"
 
+namespace widgets {
+
 class Button {
   sf::Font font_;
   sf::Text text_;
@@ -33,5 +35,7 @@ class Button {
   const sf::Text& text() const;
   void setText(const std::string& text);
 };
+
+}  // namespace widgets
 
 #endif  // BUTTON_H

@@ -5,7 +5,7 @@
 #include "components.h"
 #include "game/game.h"
 
-systems::KeyboardSystem::KeyboardSystem(Game &game) : game_(game) {}
+systems::KeyboardSystem::KeyboardSystem(states::Game &game) : game_(game) {}
 
 void systems::KeyboardSystem::update(entt::registry &registry,
                                      const std::chrono::milliseconds &diff) {

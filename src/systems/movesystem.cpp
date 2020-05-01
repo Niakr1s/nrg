@@ -12,7 +12,7 @@ void systems::MoveSystem::update(entt::registry& registry,
                                  const std::chrono::milliseconds& diff) {
   registry.view<components::Player, components::Body>().each(
       [&](components::Player& player, components::Body& body) {
-        Direction direction(player.keyboard.getDirectionVector());
+        misc::Direction direction(player.keyboard.getDirectionVector());
         if (direction.angle() == std::nullopt) {
           body.body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
         } else {

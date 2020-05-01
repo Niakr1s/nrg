@@ -12,6 +12,8 @@
 #include "systems.h"
 #include "widgets/button.h"
 
+namespace states {
+
 class Game : public State {
   entt::registry registry_;
   std::vector<std::shared_ptr<System>> systems_;
@@ -27,5 +29,7 @@ class Game : public State {
 
   const KeyBindings& keybindings() const;
 };
+
+}  // namespace states
 
 #endif  // GAME_H

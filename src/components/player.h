@@ -8,8 +8,8 @@
 namespace components {
 
 struct Player {
-  KeyBoard keyboard;
-  float velocity = DEFAULT_PLAYER_VELOCITY;
+  misc::KeyBoard keyboard;
+  float velocity = constants::DEFAULT_PLAYER_VELOCITY;
 };
 
 }  // namespace components

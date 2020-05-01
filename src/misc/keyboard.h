@@ -6,6 +6,8 @@
 
 #include "game/keybindings.h"
 
+namespace misc {
+
 class KeyBoard {
   using Key = KeyBindings::Key;
 
@@ -21,5 +23,7 @@ class KeyBoard {
 
   bool firePressed();
 };
+
+}  // namespace misc
 
 #endif  // KEYBOARD_H

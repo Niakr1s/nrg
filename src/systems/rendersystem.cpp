@@ -23,7 +23,7 @@ void systems::RenderSystem::update(entt::registry &registry,
           b2Vec2 pos = body.body->GetWorldPoint(circle_shape->m_p);
           float radius = circle_shape->m_radius;
           sf::CircleShape circle(radius);
-          circle.setPosition(pos.x, pos.y);
+          circle.setPosition(pos.x, window_.getSize().y - pos.y);
           if (registry.has<components::Player>(entity)) {
             circle.setFillColor(sf::Color::White);
           }

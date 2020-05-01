@@ -15,10 +15,10 @@ void KeyBoard::keyReleased(const Key &key) { pressed_[key] = false; }
 std::pair<float, float> KeyBoard::getDirectionVector() {
   std::pair<float, float> res{0.f, 0.f};
   if (pressed_[Key::PlayerUp] && !pressed_[Key::PlayerDown]) {
-    res.second = -1.f;
+    res.second = 1.f;
   }
   if (pressed_[Key::PlayerDown] && !pressed_[Key::PlayerUp]) {
-    res.second = 1.f;
+    res.second = -1.f;
   }
   if (pressed_[Key::PlayerLeft] && !pressed_[Key::PlayerRight]) {
     res.first = -1.f;

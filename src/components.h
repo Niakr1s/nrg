@@ -7,5 +7,6 @@
 #include "components/positioncomponent.h"
 #include "components/radius.h"
 #include "components/velocity.h"
+#include "components/body.h"
 
 #endif  // COMPONENTS_H

@@ -3,7 +3,7 @@
 
 #include "components.h"
 #include "constants.h"
-#include "player/keyboard.h"
+#include "misc/keyboard.h"
 
 namespace components {
 

@@ -22,18 +22,18 @@ void systems::KeyboardSystem::update(entt::registry &registry,
 
       try {
         auto action = game_.keybindings().at(event.key.code);
-        registry.view<components::KeyBoard>().each(
-            [&](components::KeyBoard &keyboard) {
-              keyboard.keyPressed(action);
+        registry.view<components::Player>().each(
+            [&](components::Player &player) {
+              player.keyboard.keyPressed(action);
             });
       } catch (...) {
       }
     } else if (event.type == sf::Event::KeyReleased) {
       try {
         auto action = game_.keybindings().at(event.key.code);
-        registry.view<components::KeyBoard>().each(
-            [&](components::KeyBoard &keyboard) {
-              keyboard.keyReleased(action);
+        registry.view<components::Player>().each(
+            [&](components::Player &player) {
+              player.keyboard.keyReleased(action);
             });
       } catch (...) {
       }

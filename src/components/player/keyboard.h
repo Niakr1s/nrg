@@ -2,6 +2,7 @@
 #define KEYBOARD_H
 
 #include <map>
+#include <optional>
 
 #include "game/keybindings.h"
 
@@ -15,10 +16,10 @@ class KeyBoard {
  public:
   KeyBoard();
 
+  std::pair<float, float> getDirectionVector();
+
   void keyPressed(const Key& key);
   void keyReleased(const Key& key);
-
-  std::pair<int, int> getdirection();
 
   bool firePressed();
 };

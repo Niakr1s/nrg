@@ -16,17 +16,16 @@ Game::Game(Manager& manager)
     : State(manager),
       keybindings_(KeyBindings::defaultKeyBindings()),
       world_(b2Vec2(0.0f, 0.0f)) {
-  systems_ = {//        std::make_shared<systems::MoveSystem>(),
-              //              std::make_shared<systems::KeyboardSystem>(*this),
+  systems_ = {std::make_shared<systems::MoveSystem>(world_),
+              std::make_shared<systems::KeyboardSystem>(*this),
               std::make_shared<systems::RenderSystem>(*window_)};
 
   spawnPlayer(100, 100);
 }
 
 void Game::spawnPlayer(float x, float y) {
-  auto [entity, player, body, keyboard] =
-      registry_
-          .create<components::Player, components::Body, components::KeyBoard>();
+  auto [entity, player, body] =
+      registry_.create<components::Player, components::Body>();
   body = components::Body::createPlayerBody(x, y, world_);
 }
 

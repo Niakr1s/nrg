@@ -21,7 +21,7 @@ MainMenu::MainMenu(Manager& manager) : State(manager) {
 
   auto exitBtn = std::make_shared<widgets::Button>("Exit");
   exitBtn->setPosition(300, 400);
-  exitBtn->clicked.connect([&] { manager_.stopMainLoop(); });
+  exitBtn->clicked.connect([&] { manager_.appExit(); });
 
   buttons_.push_back(startGameBtn);
   buttons_.push_back(continueBtn);

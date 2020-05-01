@@ -19,6 +19,7 @@ class Manager {
 
  public:
   Manager();
+  ~Manager();
 
   std::shared_ptr<State> state() const;
 
@@ -31,7 +32,7 @@ class Manager {
   void startKeyListenerThread();
 
   void startMainLoop();
-  void stopMainLoop();
+  void appExit();
 };
 
 #endif  // MANAGER_H

@@ -10,6 +10,8 @@ using namespace std::chrono_literals;
 
 Manager::Manager() {}
 
+Manager::~Manager() { key_listener_thread_.join(); }
+
 std::shared_ptr<State> Manager::state() const { return state_; }
 
 void Manager::startNewGame() {
@@ -38,7 +40,7 @@ void Manager::startKeyListenerThread() {
 
     sf::Event event;
     while (active_ && window_->isOpen() && window_->waitEvent(event)) {
-      if (event.type == sf::Event::Closed) active_ = false;
+      if (event.type == sf::Event::Closed) appExit();
 
       if (event.type == sf::Event::MouseButtonPressed ||
           event.type == sf::Event::MouseMoved ||
@@ -74,10 +76,6 @@ void Manager::startMainLoop() {
 
     std::this_thread::sleep_for(1ms);
   }
-  stopMainLoop();
 }
 
-void Manager::stopMainLoop() {
-  active_ = false;
-  key_listener_thread_.join();
-}
+void Manager::appExit() { active_ = false; }

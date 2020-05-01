@@ -13,22 +13,21 @@
 using namespace std::chrono_literals;
 
 Game::Game(Manager& manager)
-    : State(manager), keybindings_(KeyBindings::defaultKeyBindings()) {
-  systems_ = {std::make_shared<systems::MoveSystem>(),
-              std::make_shared<systems::KeyboardSystem>(*this),
+    : State(manager),
+      keybindings_(KeyBindings::defaultKeyBindings()),
+      world_(b2Vec2(0.0f, 0.0f)) {
+  systems_ = {//        std::make_shared<systems::MoveSystem>(),
+              //              std::make_shared<systems::KeyboardSystem>(*this),
               std::make_shared<systems::RenderSystem>(*window_)};
 
   spawnPlayer(100, 100);
 }
 
 void Game::spawnPlayer(float x, float y) {
-  auto [entity, player, pos, radius, velocity, keyboard, dir] =
-      registry_.create<components::Player, components::Position,
-                       components::Radius, components::Velocity,
-                       components::KeyBoard, components::Direction>();
-  pos.x = x;
-  pos.y = y;
-  radius.r = 10.;
+  auto [entity, player, body, keyboard] =
+      registry_
+          .create<components::Player, components::Body, components::KeyBoard>();
+  body = components::Body::createPlayerBody(x, y, world_);
 }
 
 void Game::update(const std::chrono::milliseconds& diff) {

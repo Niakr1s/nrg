@@ -5,15 +5,10 @@
 
 namespace components {
 
-class Body {
-  b2Body* body_;
-  b2World& world_;
+struct Body {
+  b2Body* body;
 
- public:
-  Body(b2World& world);
-
-  void createFixture(b2FixtureDef* fixture);
-  void destroy();
+  static Body createPlayerBody(float x, float y, b2World& world);
 };
 
 }  // namespace components

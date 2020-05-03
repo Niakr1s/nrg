@@ -15,7 +15,10 @@ Manager::~Manager() { key_listener_thread_.join(); }
 std::shared_ptr<State> Manager::state() const { return state_; }
 
 void Manager::startNewGame() {
-  pending_state_ = std::make_shared<states::Game>(*this);
+  auto game = std::make_shared<states::Game>(*this);
+  if (game->loadNextLevel()) {
+    pending_state_ = game;
+  }
 }
 
 void Manager::pauseGame() {

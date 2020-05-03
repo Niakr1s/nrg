@@ -3,12 +3,12 @@
 
 #include <box2d/box2d.h>
 
+#include <vector>
+
 namespace components {
 
 struct Body {
   b2Body* body;
-
-  static Body createPlayerBody(float x, float y, b2World& world);
 };
 
 }  // namespace components

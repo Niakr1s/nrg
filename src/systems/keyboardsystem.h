@@ -15,8 +15,7 @@ class KeyboardSystem : public System {
  public:
   KeyboardSystem(states::Game& game);
 
-  void update(entt::registry& registry,
-              const std::chrono::milliseconds& diff) override;
+  void update(const std::chrono::milliseconds& diff) override;
 };
 
 }  // namespace systems

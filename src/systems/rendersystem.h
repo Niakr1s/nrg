@@ -13,8 +13,11 @@ class RenderSystem : public System {
  public:
   RenderSystem(sf::RenderWindow& window);
 
-  void update(entt::registry& registry,
-              const std::chrono::milliseconds& diff) override;
+  void update(const std::chrono::milliseconds& diff) override;
+
+ private:
+  float toWindowY(float y) const;
+  float toWindowX(float x) const;
 };
 
 }  // namespace systems

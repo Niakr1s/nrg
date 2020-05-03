@@ -15,26 +15,30 @@ using namespace std::chrono_literals;
 namespace states {
 
 Game::Game(Manager& manager)
-    : State(manager),
-      keybindings_(KeyBindings::defaultKeyBindings()),
-      world_(b2Vec2(0.0f, 0.0f)) {
-  systems_ = {std::make_shared<systems::MoveSystem>(world_),
+    : State(manager), keybindings_(KeyBindings::defaultKeyBindings()) {
+  systems_ = {std::make_shared<systems::MoveSystem>(),
               std::make_shared<systems::KeyboardSystem>(*this),
               std::make_shared<systems::RenderSystem>(*window_)};
 
-  spawnPlayer(100, 100);
-}
-
-void Game::spawnPlayer(float x, float y) {
-  auto [entity, player, body] =
-      registry_.create<components::Player, components::Body>();
-  body = components::Body::createPlayerBody(x, y, world_);
+  level_loader_ = std::make_shared<level::TmpLevelLoader>();
 }
 
 void Game::update(const std::chrono::milliseconds& diff) {
+  if (!level_) return;
+
   for (auto& system : systems_) {
-    system->update(registry_, diff);
+    system->update(diff);
   }
+}
+
+bool Game::loadNextLevel() {
+  level_ = level_loader_->loadNextLevel();
+
+  for (auto& s : systems_) {
+    s->setLevel(level_);
+  }
+
+  return level_ != nullptr;
 }
 
 const KeyBindings& Game::keybindings() const { return keybindings_; }

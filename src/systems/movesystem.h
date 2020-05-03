@@ -3,18 +3,16 @@
 
 #include <box2d/box2d.h>
 
+#include "level.h"
 #include "systems/system.h"
 
 namespace systems {
 
 class MoveSystem : public System {
-  b2World &world_;
-
  public:
-  MoveSystem(b2World &world);
+  MoveSystem();
 
-  void update(entt::registry &registry,
-              const std::chrono::milliseconds &diff) override;
+  void update(const std::chrono::milliseconds &diff) override;
 };
 
 }  // namespace systems

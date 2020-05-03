@@ -6,11 +6,10 @@
 #include "constants.h"
 #include "misc/direction.h"
 
-systems::MoveSystem::MoveSystem(b2World& world) : world_(world) {}
+systems::MoveSystem::MoveSystem() {}
 
-void systems::MoveSystem::update(entt::registry& registry,
-                                 const std::chrono::milliseconds& diff) {
-  registry.view<components::Player, components::Body>().each(
+void systems::MoveSystem::update(const std::chrono::milliseconds& diff) {
+  level_->registry().view<components::Player, components::Body>().each(
       [&](components::Player& player, components::Body& body) {
         misc::Direction direction(player.keyboard.getDirectionVector());
         if (direction.angle() == std::nullopt) {
@@ -21,5 +20,5 @@ void systems::MoveSystem::update(entt::registry& registry,
         }
       });
 
-  world_.Step(static_cast<float>(diff.count()) / 1000, 6, 2);
+  level_->world().Step(static_cast<float>(diff.count()) / 1000, 6, 2);
 }

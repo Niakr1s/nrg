@@ -7,8 +7,7 @@
 
 systems::KeyboardSystem::KeyboardSystem(states::Game &game) : game_(game) {}
 
-void systems::KeyboardSystem::update(entt::registry &registry,
-                                     const std::chrono::milliseconds &diff) {
+void systems::KeyboardSystem::update(const std::chrono::milliseconds &diff) {
   std::unique_lock<std::mutex>(game_.eventQueue().mutex);
   while (!game_.eventQueue().queue.empty()) {
     auto event = game_.eventQueue().queue.front();
@@ -22,7 +21,7 @@ void systems::KeyboardSystem::update(entt::registry &registry,
 
       try {
         auto action = game_.keybindings().at(event.key.code);
-        registry.view<components::Player>().each(
+        level_->registry().view<components::Player>().each(
             [&](components::Player &player) {
               player.keyboard.keyPressed(action);
             });
@@ -31,7 +30,7 @@ void systems::KeyboardSystem::update(entt::registry &registry,
     } else if (event.type == sf::Event::KeyReleased) {
       try {
         auto action = game_.keybindings().at(event.key.code);
-        registry.view<components::Player>().each(
+        level_->registry().view<components::Player>().each(
             [&](components::Player &player) {
               player.keyboard.keyReleased(action);
             });

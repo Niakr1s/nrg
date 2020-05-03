@@ -40,15 +40,17 @@ void systems::RenderSystem::update(const std::chrono::milliseconds &) {
 
               window_.draw(circle);
 
-              sf::RectangleShape arrow;
-              arrow.setPosition(center_pos_zoomed.x, center_pos_zoomed.y);
-              arrow.setSize({1.f, radius_zoomed});
+              if (level_->registry().has<components::Player>(entity)) {
+                sf::RectangleShape arrow;
+                arrow.setPosition(center_pos_zoomed.x, center_pos_zoomed.y);
+                arrow.setSize({1.f, radius_zoomed});
 
-              arrow.setFillColor(sf::Color::Black);
+                arrow.setFillColor(sf::Color::Black);
 
-              arrow.rotate(toWindowRadians(body.body->GetAngle()));
+                arrow.rotate(toWindowRadians(body.body->GetAngle()));
 
-              window_.draw(arrow);
+                window_.draw(arrow);
+              }
 
             } break;
             case (b2Shape::Type::e_polygon): {

@@ -39,17 +39,13 @@ void systems::RenderSystem::update(const std::chrono::milliseconds &) {
               sf::ConvexShape sf_shape;
               sf_shape.setPointCount(polygon_shape->m_count);
 
-              std::cout << "Polygon: ";
               for (int i = 0; i != polygon_shape->m_count; ++i) {
                 b2Vec2 pos =
                     body.body->GetWorldPoint(polygon_shape->m_vertices[i]);
 
-                std::cout << pos.x << ", " << pos.y << "; ";
-
                 sf_shape.setPoint(
                     i, sf::Vector2f(toWindowX(pos.x), toWindowY(pos.y)));
               }
-              std::cout << std::endl;
 
               window_.draw(sf_shape);
             } break;

@@ -29,4 +29,13 @@ std::pair<float, float> KeyBoard::getDirectionVector() {
   return res;
 }
 
+float KeyBoard::getAngleVelocity() {
+  int angle_direction = 0;
+
+  if (pressed_[Key::PlayerClockWise]) ++angle_direction;
+  if (pressed_[Key::PlayerCounterClockWise]) --angle_direction;
+
+  return constants::DEFAULT_PLAYER_ANGLE_VELOCITY * angle_direction;
+}
+
 }  // namespace misc

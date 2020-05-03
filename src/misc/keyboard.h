@@ -17,6 +17,7 @@ class KeyBoard {
   KeyBoard();
 
   std::pair<float, float> getDirectionVector();
+  float getAngleVelocity();
 
   void keyPressed(const Key& key);
   void keyReleased(const Key& key);

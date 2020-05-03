@@ -12,6 +12,8 @@ class KeyBindings {
     PlayerLeft,
     PlayerRight,
     PlayerFire,
+    PlayerClockWise,
+    PlayerCounterClockWise,
   };
 
   KeyBindings();

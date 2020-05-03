@@ -21,5 +21,7 @@ KeyBindings KeyBindings::defaultKeyBindings() {
       {sf::Keyboard::A, Key::PlayerLeft},
       {sf::Keyboard::D, Key::PlayerRight},
       {sf::Keyboard::Space, Key::PlayerFire},
+      {sf::Keyboard::Right, Key::PlayerClockWise},
+      {sf::Keyboard::Left, Key::PlayerCounterClockWise},
   });
 }

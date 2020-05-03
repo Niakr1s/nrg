@@ -18,6 +18,9 @@ void systems::MoveSystem::update(const std::chrono::milliseconds& diff) {
           body.body->SetLinearVelocity(b2Vec2(direction.dx(player.velocity),
                                               direction.dy(player.velocity)));
         }
+
+        float angle_velocity = player.keyboard.getAngleVelocity();
+        body.body->SetAngularVelocity(angle_velocity);
       });
 
   level_->world().Step(static_cast<float>(diff.count()) / 1000, 6, 2);

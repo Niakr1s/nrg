@@ -29,6 +29,8 @@ class Level {
   // w and h = full width and height
   void makeGroundBody(float x, float y, float w, float h);
 
+  b2Body* makeCircle(int x, int y, int radius, bool dynamic);
+
   void makeFrame(int width, int height);
 };
 

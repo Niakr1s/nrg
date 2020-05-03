@@ -37,27 +37,14 @@ void Level::spawnPlayer(int x, int y) {
   auto [entity, player, body] =
       registry_.create<components::Player, components::Body>();
 
-  b2BodyDef bodyDef;
-  bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(x, y);
-
-  body.body = world_.CreateBody(&bodyDef);
-
-  b2FixtureDef fixture_def;
-
-  b2CircleShape shape;
-  shape.m_p.Set(0, 0);
-  shape.m_radius = 10.0f;
-
-  fixture_def.shape = &shape;
-  fixture_def.density = 1.0f;
-  fixture_def.friction = 0.3f;
-
-  body.body->CreateFixture(&fixture_def);
+  body.body = makeCircle(x, y, 10, true);
 }
 
 void Level::spawnEnemy(int x, int y) {
-  // TODO
+  auto [entity, player, body] =
+      registry_.create<components::Enemy, components::Body>();
+
+  body.body = makeCircle(x, y, 10, false);
 }
 
 void Level::makeGroundBody(float x, float y, float w, float h) {
@@ -73,6 +60,28 @@ void Level::makeGroundBody(float x, float y, float w, float h) {
   b2PolygonShape groundBox;
   groundBox.SetAsBox(w / 2, h / 2);
   body.body->CreateFixture(&groundBox, 0.f);
+}
+
+b2Body *Level::makeCircle(int x, int y, int radius, bool dynamic) {
+  b2BodyDef bodyDef;
+  dynamic ? bodyDef.type = b2_dynamicBody : bodyDef.type = b2_staticBody;
+  bodyDef.position.Set(x, y);
+
+  auto body = world_.CreateBody(&bodyDef);
+
+  b2FixtureDef fixture_def;
+
+  b2CircleShape shape;
+  shape.m_p.Set(0, 0);
+  shape.m_radius = radius;
+
+  fixture_def.shape = &shape;
+  fixture_def.density = 1.0f;
+  fixture_def.friction = 0.3f;
+
+  body->CreateFixture(&fixture_def);
+
+  return body;
 }
 
 }  // namespace level

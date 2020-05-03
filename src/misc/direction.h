@@ -6,7 +6,7 @@
 namespace misc {
 
 class Direction {
-  std::optional<float> angle_ = std::nullopt;
+  std::optional<float> angle_ = std::nullopt;  // radians
 
  public:
   Direction();

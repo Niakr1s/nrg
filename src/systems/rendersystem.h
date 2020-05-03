@@ -21,6 +21,7 @@ class RenderSystem : public System {
  private:
   float toWindowY(float y) const;
   float toWindowX(float x) const;
+  float toWindowRadians(float angle) const;
   float zoom(float a) const;
 
   void onNewLevel() override;

@@ -26,12 +26,30 @@ void systems::RenderSystem::update(const std::chrono::milliseconds &) {
 
               float radius = circle_shape->m_radius;
               b2Vec2 pos = body.body->GetWorldPoint(circle_shape->m_p);
+              b2Vec2 center_pos_zoomed(toWindowX(pos.x), toWindowY(pos.y));
 
-              sf::CircleShape circle(zoom(radius));
-              circle.setPosition(toWindowX(pos.x) - zoom(radius),
-                                 toWindowY(pos.y) - zoom(radius));
+              float radius_zoomed = zoom(radius);
+
+              sf::CircleShape circle(radius_zoomed);
+              circle.setPosition(center_pos_zoomed.x - radius_zoomed,
+                                 center_pos_zoomed.y - radius_zoomed);
+
+              if (level_->registry().has<components::Enemy>(entity)) {
+                circle.setFillColor(sf::Color::Red);
+              }
 
               window_.draw(circle);
+
+              sf::RectangleShape arrow;
+              arrow.setPosition(center_pos_zoomed.x, center_pos_zoomed.y);
+              arrow.setSize({1.f, radius_zoomed});
+
+              arrow.setFillColor(sf::Color::Black);
+
+              arrow.rotate(toWindowRadians(body.body->GetAngle()));
+
+              window_.draw(arrow);
+
             } break;
             case (b2Shape::Type::e_polygon): {
               auto polygon_shape = dynamic_cast<b2PolygonShape *>(shape);
@@ -69,6 +87,12 @@ float systems::RenderSystem::toWindowY(float y) const {
 float systems::RenderSystem::toWindowX(float x) const {
   float diff = x - view_point_.x;
   auto res = center_point_.x + zoom(diff);
+  return res;
+}
+
+float systems::RenderSystem::toWindowRadians(float angle) const {
+  float n = angle / constants::PI;
+  float res = 180.f + 180.f * n;
   return res;
 }
 

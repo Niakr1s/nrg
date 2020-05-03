@@ -14,8 +14,8 @@ std::shared_ptr<Level> level::LevelLoader::loadNextLevel() {
 std::shared_ptr<level::Level> level::TmpLevelLoader::doLoadNextLevel() {
   auto level = std::make_shared<Level>(250, 200);
 
-  level->spawnPlayer(125, 20);
-  level->spawnEnemy(125, 170);
+  level->spawnPlayer(125, 100);
+  //  level->spawnEnemy(125, 170);
 
   return level;
 }

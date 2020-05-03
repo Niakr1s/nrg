@@ -11,7 +11,14 @@ b2World &Level::world() { return world_; }
 
 entt::registry &Level::registry() { return registry_; }
 
-Level::Level() : world_(b2Vec2(0.f, 0.f)) {}
+int Level::width() const { return width_; }
+
+int Level::height() const { return height_; }
+
+Level::Level(int width, int height)
+    : world_(b2Vec2(0.f, 0.f)), width_(width), height_(height) {
+  makeFrame(width, height);
+}
 
 void Level::makeFrame(int width, int height) {
   makeGroundBody(-constants::BORDERS_WIDTH / 2, height / 2,

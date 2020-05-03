@@ -17,9 +17,12 @@ class System {
 
   virtual void update(const std::chrono::milliseconds& diff) = 0;
 
-  virtual void setLevel(std::shared_ptr<level::Level> level);
+  void setLevel(std::shared_ptr<level::Level> level);
 
   void update() { return update(0ms); }
+
+ protected:
+  virtual void onNewLevel();
 };
 
 #endif  // SYSTEM_H

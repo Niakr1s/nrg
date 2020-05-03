@@ -9,6 +9,9 @@ namespace systems {
 
 class RenderSystem : public System {
   sf::RenderWindow& window_;
+  float zoom_;
+  sf::Vector2f view_point_;    // in level coordinates
+  sf::Vector2f center_point_;  // in window coordinates
 
  public:
   RenderSystem(sf::RenderWindow& window);
@@ -18,6 +21,12 @@ class RenderSystem : public System {
  private:
   float toWindowY(float y) const;
   float toWindowX(float x) const;
+  float zoom(float a) const;
+
+  void onNewLevel() override;
+
+  void updateZoom();
+  void updateViewPoint();
 };
 
 }  // namespace systems

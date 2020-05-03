@@ -8,9 +8,13 @@
 #include "components.h"
 
 systems::RenderSystem::RenderSystem(sf::RenderWindow &window)
-    : window_(window) {}
+    : window_(window),
+      center_point_((float)window.getSize().x / 2,
+                    (float)window.getSize().y / 2) {}
 
 void systems::RenderSystem::update(const std::chrono::milliseconds &diff) {
+  updateViewPoint();
+
   level_->registry().view<components::Body>().each(
       [&](const entt::entity entity, components::Body &body) {
         for (auto fixture = body.body->GetFixtureList(); fixture;
@@ -22,7 +26,7 @@ void systems::RenderSystem::update(const std::chrono::milliseconds &diff) {
 
               b2Vec2 pos = body.body->GetWorldPoint(circle_shape->m_p);
 
-              sf::CircleShape circle(circle_shape->m_radius);
+              sf::CircleShape circle(zoom(circle_shape->m_radius));
               circle.setPosition(toWindowX(pos.x), toWindowY(pos.y));
 
               std::cout << "Circle: " << pos.x << ", " << pos.y << ", "
@@ -62,7 +66,29 @@ void systems::RenderSystem::update(const std::chrono::milliseconds &diff) {
 }
 
 float systems::RenderSystem::toWindowY(float y) const {
-  return (window_.getSize().y - y);
+  float diff = y - view_point_.y;
+  auto res = center_point_.y - zoom(diff);
+  return res;
 }
 
-float systems::RenderSystem::toWindowX(float x) const { return x; }
+float systems::RenderSystem::toWindowX(float x) const {
+  float diff = x - view_point_.x;
+  auto res = center_point_.x + zoom(diff);
+  return res;
+}
+
+float systems::RenderSystem::zoom(float a) const { return zoom_ * a; }
+
+void systems::RenderSystem::onNewLevel() { updateZoom(); }
+
+void systems::RenderSystem::updateZoom() {
+  float vertical = (float)window_.getSize().y / level_->height();
+  float horizontal = (float)window_.getSize().x / level_->width();
+
+  zoom_ = std::min(vertical, horizontal) * 0.8f;
+}
+
+void systems::RenderSystem::updateViewPoint() {
+  view_point_.x = level_->width() / 2;
+  view_point_.y = level_->height() / 2;
+}

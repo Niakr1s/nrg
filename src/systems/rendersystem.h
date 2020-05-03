@@ -16,7 +16,7 @@ class RenderSystem : public System {
  public:
   RenderSystem(sf::RenderWindow& window);
 
-  void update(const std::chrono::milliseconds& diff) override;
+  void update(const std::chrono::milliseconds&) override;
 
  private:
   float toWindowY(float y) const;

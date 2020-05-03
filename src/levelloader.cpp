@@ -12,9 +12,9 @@ std::shared_ptr<Level> level::LevelLoader::loadNextLevel() {
 }
 
 std::shared_ptr<level::Level> level::TmpLevelLoader::doLoadNextLevel() {
-  auto level = std::make_shared<Level>(400, 200);
+  auto level = std::make_shared<Level>(250, 200);
 
-  level->spawnPlayer(20, 20);
+  level->spawnPlayer(125, 20);
 
   return level;
 }

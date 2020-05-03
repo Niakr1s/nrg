@@ -46,7 +46,7 @@ void Level::spawnPlayer(int x, int y) {
   b2FixtureDef fixture_def;
 
   b2CircleShape shape;
-  shape.m_p = b2Vec2(x, y);
+  shape.m_p.Set(0, 0);
   shape.m_radius = 10.0f;
 
   fixture_def.shape = &shape;

@@ -12,7 +12,7 @@ systems::RenderSystem::RenderSystem(sf::RenderWindow &window)
       center_point_((float)window.getSize().x / 2,
                     (float)window.getSize().y / 2) {}
 
-void systems::RenderSystem::update(const std::chrono::milliseconds &diff) {
+void systems::RenderSystem::update(const std::chrono::milliseconds &) {
   updateViewPoint();
 
   level_->registry().view<components::Body>().each(
@@ -24,13 +24,12 @@ void systems::RenderSystem::update(const std::chrono::milliseconds &diff) {
             case (b2Shape::Type::e_circle): {
               auto circle_shape = dynamic_cast<b2CircleShape *>(shape);
 
+              float radius = circle_shape->m_radius;
               b2Vec2 pos = body.body->GetWorldPoint(circle_shape->m_p);
 
-              sf::CircleShape circle(zoom(circle_shape->m_radius));
-              circle.setPosition(toWindowX(pos.x), toWindowY(pos.y));
-
-              std::cout << "Circle: " << pos.x << ", " << pos.y << ", "
-                        << circle_shape->m_radius << std::endl;
+              sf::CircleShape circle(zoom(radius));
+              circle.setPosition(toWindowX(pos.x) - zoom(radius),
+                                 toWindowY(pos.y) - zoom(radius));
 
               window_.draw(circle);
             } break;

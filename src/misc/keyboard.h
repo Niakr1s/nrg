@@ -9,9 +9,13 @@
 namespace misc {
 
 class KeyBoard {
+ public:
   using Key = KeyBindings::Key;
 
+ private:
   std::map<KeyBindings::Key, bool> pressed_;
+
+  bool fire_was_pressed_ = false;
 
  public:
   KeyBoard();
@@ -22,7 +26,10 @@ class KeyBoard {
   void keyPressed(const Key& key);
   void keyReleased(const Key& key);
 
-  bool firePressed();
+  bool isKeyPressed(const Key& key) const;
+
+  bool fireWasPressed() const;
+  void unpressFire();
 };
 
 }  // namespace misc

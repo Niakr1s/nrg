@@ -18,7 +18,8 @@ std::shared_ptr<level::Level> level::TmpLevelLoader::doLoadNextLevel() {
   auto player = level->spawnPlayer(125, 20);
   components::Weapon& player_weapon =
       level->registry().assign<components::Weapon>(player);
-  player_weapon.guns.push_back(std::make_shared<armory::PistolGun>(0.f, 1000));
+  player_weapon.guns.push_back(
+      std::make_shared<armory::PistolGun>(0.f, 200, false));
 
   auto enemy = level->spawnEnemy(125, 170);
   components::Weapon& enemy_weapon =

@@ -1,16 +1,32 @@
 #include "keyboard.h"
 
+#include <iostream>
+
 #include "constants.h"
 
 namespace misc {
 
 KeyBoard::KeyBoard() {}
 
-bool KeyBoard::firePressed() { return pressed_[Key::PlayerFire]; }
+bool KeyBoard::fireWasPressed() const { return fire_was_pressed_; }
 
-void KeyBoard::keyPressed(const Key &key) { pressed_[key] = true; }
+void KeyBoard::unpressFire() { fire_was_pressed_ = false; }
+
+void KeyBoard::keyPressed(const Key &key) {
+  std::cout << "key pressed: " << (unsigned)key << std::endl;
+  pressed_[key] = true;
+  if (key == Key::PlayerFire) fire_was_pressed_ = true;
+}
 
 void KeyBoard::keyReleased(const Key &key) { pressed_[key] = false; }
+
+bool KeyBoard::isKeyPressed(const KeyBoard::Key &key) const {
+  try {
+    return pressed_.at(key);
+  } catch (...) {
+    return false;
+  }
+}
 
 std::pair<float, float> KeyBoard::getDirectionVector() {
   std::pair<float, float> res{0.f, 0.f};

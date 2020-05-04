@@ -94,7 +94,7 @@ float systems::RenderSystem::toWindowX(float x) const {
 
 float systems::RenderSystem::toWindowRadians(float angle) const {
   float n = angle / constants::PI;
-  float res = 180.f + 180.f * n;
+  float res = -90.f + 180.f * n;
   return res;
 }
 

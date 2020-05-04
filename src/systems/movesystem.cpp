@@ -10,7 +10,8 @@ systems::MoveSystem::MoveSystem() {}
 
 void systems::MoveSystem::update(const std::chrono::milliseconds& diff) {
   level_->registry().view<components::Player, components::Body>().each(
-      [&](components::Player& player, components::Body& body) {
+      [&](entt::entity entity, components::Player& player,
+          components::Body& body) {
         misc::Direction direction(player.keyboard.getDirectionVector());
         if (direction.angle() == std::nullopt) {
           body.body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
@@ -19,9 +20,15 @@ void systems::MoveSystem::update(const std::chrono::milliseconds& diff) {
                                               direction.dy(player.velocity)));
         }
 
-        float angle_velocity = player.keyboard.getAngleVelocity();
-        body.body->SetAngularVelocity(angle_velocity);
+        if (auto weapon =
+                level_->registry().try_get<components::Weapon>(entity)) {
+          weapon->setAngleVelocity(player.keyboard.getAngleVelocity(
+              constants::DEFAULT_WEAPON_ANGLE_VELOCITY));
+        }
       });
+
+  level_->registry().view<components::Weapon>().each(
+      [&](components::Weapon& weapon) { weapon.updateAngle(diff); });
 
   level_->world().Step(static_cast<float>(diff.count()) / 1000, 6, 2);
 }

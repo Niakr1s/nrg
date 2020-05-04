@@ -5,5 +5,6 @@
 #include "systems/movesystem.h"
 #include "systems/rendersystem.h"
 #include "systems/system.h"
+#include "systems/weaponsystem.h"
 
 #endif  // SYSTEMS_H

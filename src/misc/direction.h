@@ -1,6 +1,8 @@
 #ifndef DIRECTION_H
 #define DIRECTION_H
 
+#include <box2d/box2d.h>
+
 #include <optional>
 
 namespace misc {
@@ -16,6 +18,8 @@ class Direction {
 
   float dx(float speed) const;
   float dy(float speed) const;
+
+  b2Vec2 vectorVelocity(float speed) const;
 
   void setDirectionVector(float dx, float dy);
   void setDirectionVector(const std::pair<float, float>& dir);

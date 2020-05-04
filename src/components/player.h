@@ -10,6 +10,7 @@ namespace components {
 struct Player {
   misc::KeyBoard keyboard;
   float velocity = constants::DEFAULT_PLAYER_VELOCITY;
+  float radius = constants::DEFAULT_PLAYER_RADIUS;
 };
 
 }  // namespace components

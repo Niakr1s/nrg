@@ -40,16 +40,19 @@ void systems::RenderSystem::update(const std::chrono::milliseconds &) {
 
               window_.draw(circle);
 
-              if (level_->registry().has<components::Player>(entity)) {
-                sf::RectangleShape arrow;
-                arrow.setPosition(center_pos_zoomed.x, center_pos_zoomed.y);
-                arrow.setSize({1.f, radius_zoomed});
+              if (auto weapon =
+                      level_->registry().try_get<components::Weapon>(entity)) {
+                for (auto &gun : weapon->guns) {
+                  sf::RectangleShape arrow;
+                  arrow.setPosition(center_pos_zoomed.x, center_pos_zoomed.y);
+                  arrow.setSize({1.f, radius_zoomed});
 
-                arrow.setFillColor(sf::Color::Black);
+                  arrow.setFillColor(sf::Color::Black);
 
-                arrow.rotate(toWindowRadians(body.body->GetAngle()));
+                  arrow.rotate(toWindowRadians(gun->absoluteAngle()));
 
-                window_.draw(arrow);
+                  window_.draw(arrow);
+                }
               }
 
             } break;

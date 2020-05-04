@@ -18,6 +18,7 @@ Game::Game(Manager& manager)
     : State(manager), keybindings_(KeyBindings::defaultKeyBindings()) {
   systems_ = {std::make_shared<systems::MoveSystem>(),
               std::make_shared<systems::KeyboardSystem>(*this),
+              std::make_shared<systems::WeaponSystem>(),
               std::make_shared<systems::RenderSystem>(*window_)};
 
   level_loader_ = std::make_shared<level::TmpLevelLoader>();

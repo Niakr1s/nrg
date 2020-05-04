@@ -33,18 +33,25 @@ void Level::makeFrame(int width, int height) {
                  constants::BORDERS_WIDTH);
 }
 
-void Level::spawnPlayer(int x, int y) {
+entt::entity Level::spawnPlayer(int x, int y) {
   auto [entity, player, body] =
       registry_.create<components::Player, components::Body>();
 
-  body.body = makeCircle(x, y, 10, true);
+  player.radius = constants::DEFAULT_PLAYER_RADIUS;
+  body.body = makeCircle(x, y, player.radius, true);
+
+  return entity;
 }
 
-void Level::spawnEnemy(int x, int y) {
+entt::entity Level::spawnEnemy(int x, int y) {
   auto [entity, player, body] =
       registry_.create<components::Enemy, components::Body>();
 
-  body.body = makeCircle(x, y, 10, false);
+  player.radius = constants::DEFAULT_ENEMY_RADIUS;
+  body.body = makeCircle(x, y, player.radius, false);
+  body.body->SetTransform(body.body->GetPosition(), 1.5f * constants::PI);
+
+  return entity;
 }
 
 void Level::makeGroundBody(float x, float y, float w, float h) {
@@ -62,7 +69,7 @@ void Level::makeGroundBody(float x, float y, float w, float h) {
   body.body->CreateFixture(&groundBox, 0.f);
 }
 
-b2Body *Level::makeCircle(int x, int y, int radius, bool dynamic) {
+b2Body *Level::makeCircle(float x, float y, float radius, bool dynamic) {
   b2BodyDef bodyDef;
   dynamic ? bodyDef.type = b2_dynamicBody : bodyDef.type = b2_staticBody;
   bodyDef.position.Set(x, y);
